@@ -6,7 +6,7 @@ description: Use when creating a new Skill, editing an existing one, or verifyin
 # Skill Authoring
 ## Writing and testing Skills as one discipline — TDD applied to process documentation
 
-> Объединено 2026-08-12 (MERGE, `DECISIONS.md`, «Финальное инженерное принятие capability-аудита») из `skill-creator` (anthropics/skills) и `writing-skills` (obra/superpowers) — два независимых источника, пришедших к одной идее: тестирование Skill'а не отдельный шаг после авторства, а тот же цикл, что и его создание. Тестовый пайплайн адаптирован под нашу реальную среду (Agent-суб-агенты, без внешнего eval-viewer/скриптов, которых здесь нет — см. раздел «Не перенесено» в конце).
+> Объединено 2026-08-12 (MERGE, Engineer, `DECISIONS.md` — «Финальное инженерное принятие capability-аудита») из `skill-creator` (anthropics/skills) и `writing-skills` (obra/superpowers) — два независимых источника, пришедших к одной идее: тестирование Skill'а не отдельный шаг после авторства, а тот же цикл, что и его создание. Тестовый пайплайн адаптирован под среду без внешнего eval-viewer/скриптов — см. раздел «Не перенесено» в конце. Заменяет `skill-creator` и `writing-skills` (оба — DEPRECATED, см. их evidence.json).
 
 ## Core principle
 
@@ -64,7 +64,7 @@ For discipline-enforcing Skills — bulletproof against rationalization: close e
 ### 4. GREEN — verify with a subagent that has the Skill
 Spawn both runs (with-Skill and baseline) in the same turn so they finish together, not sequentially. Compare: does the with-Skill agent now comply / apply correctly / recognize when to use it?
 
-**Adapted for our environment** — no `eval-viewer`/benchmark scripts here: read both transcripts directly, compare qualitatively. For 2-3 realistic test prompts this is fast enough without scripted aggregation; needing many more than that is itself a signal the Skill is trying to do too much.
+**Adapted for environments without `eval-viewer`/benchmark scripts**: read both transcripts directly, compare qualitatively. For 2-3 realistic test prompts this is fast enough without scripted aggregation; needing many more than that is itself a signal the Skill is trying to do too much.
 
 ### 5. REFACTOR — close loopholes
 New rationalization found? Add an explicit counter, re-test until the agent can't find a way around it. Keep the Skill lean — remove anything not pulling its weight; read the transcript, not just the output, to see if the Skill made the model waste turns on something unproductive.
@@ -76,7 +76,7 @@ Rich, trigger-only description; keyword coverage (error messages, symptoms, tool
 
 ```
 skill-name/
-├── SKILL.md (required — frontmatter + body, keep under 500 lines — confirmed 2026-08-13 against Anthropic's own current best-practices doc, not folklore: "Keep SKILL.md body under 500 lines for optimal performance. Split content into separate files when approaching this limit")
+├── SKILL.md (required — frontmatter + body, keep under 500 lines — confirmed against Anthropic's own current best-practices doc, not folklore: "Keep SKILL.md body under 500 lines for optimal performance. Split content into separate files when approaching this limit")
 ├── scripts/     — executable code for deterministic/repetitive tasks
 ├── references/  — docs loaded into context only as needed
 └── assets/      — files used in output (templates, icons)
@@ -102,8 +102,8 @@ One excellent example beats several mediocre ones. Flowcharts only for genuinely
 - [ ] With-Skill (GREEN) run verified against the same scenario
 - [ ] Rationalization table + red flags, if discipline-enforcing
 - [ ] No dead references to infrastructure this environment doesn't have
-- [ ] Installed in `skills/`, `HOME.md` table updated
+- [ ] Installed, host agent's own Skill list/table updated
 
 ## Не перенесено из источников, и почему
 
-`skill-creator` (Anthropic) в оригинале также включал: Python eval-viewer с браузерным ревью человеком, количественную агрегацию бенчмарков (`benchmark.json`/`aggregate_benchmark`), автоматизированный цикл оптимизации description (`run_loop.py` через `claude -p`), и flow упаковки `.skill`/`present_files`. Ни одного из этих скриптов в нашей среде нет. Решения, которые они обслуживали (сравнить с/без Skill, оптимизировать триггер, упаковать для распространения), сохранены выше в адаптированном, ручном виде; конкретный тулинг — нет: установить мёртвые ссылки на скрипты было бы хуже, чем не иметь этого шага вовсе.
+`skill-creator` (Anthropic) в оригинале также включал: Python eval-viewer с браузерным ревью человеком, количественную агрегацию бенчмарков (`benchmark.json`/`aggregate_benchmark`), автоматизированный цикл оптимизации description (`run_loop.py` через `claude -p`), и flow упаковки `.skill`/`present_files`. Решения, которые они обслуживали (сравнить с/без Skill, оптимизировать триггер, упаковать для распространения), сохранены выше в адаптированном, ручном виде; конкретный тулинг — нет, если в среде агента его не установить: мёртвые ссылки на скрипты хуже, чем отсутствие шага вовсе.
