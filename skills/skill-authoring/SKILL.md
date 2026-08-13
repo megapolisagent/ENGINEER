@@ -76,7 +76,7 @@ Rich, trigger-only description; keyword coverage (error messages, symptoms, tool
 
 ```
 skill-name/
-├── SKILL.md (required — frontmatter + body, <500 lines ideal)
+├── SKILL.md (required — frontmatter + body, keep under 500 lines — confirmed 2026-08-13 against Anthropic's own current best-practices doc, not folklore: "Keep SKILL.md body under 500 lines for optimal performance. Split content into separate files when approaching this limit")
 ├── scripts/     — executable code for deterministic/repetitive tasks
 ├── references/  — docs loaded into context only as needed
 └── assets/      — files used in output (templates, icons)
