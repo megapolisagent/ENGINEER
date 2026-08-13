@@ -27,6 +27,8 @@
 | Чтобы вспомнить находки аудита Foundation | `knowledge/foundation-observations.md` |
 | Чтобы вспомнить внешнюю сверку `repository-design` с практикой | `knowledge/repository-design-observations.md` |
 | Чтобы вспомнить, какие Skills реально используются, а не только установлены | `knowledge/skill-usage-observations.md` |
+| Чтобы вспомнить, сколько стоит независимый запуск агента и почему | `knowledge/cost-observations.md` |
+| Чтобы вспомнить последнюю проверку готовности ДОМ/Skill System/Researcher/Engineer | `knowledge/system-readiness-audit-2026-08-12.md` |
 | *(специализация дописывает свои строки сюда)* | |
 
 ## Меню vs прямой запрос

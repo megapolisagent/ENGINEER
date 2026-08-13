@@ -1,0 +1,42 @@
+{
+  "skill": "verification-before-completion",
+  "category": "ENGINEERING",
+  "origin": {
+    "source": "obra/superpowers (github, MIT license по репозиторию)",
+    "source_path": "skills/verification-before-completion",
+    "type": "adapted",
+    "note": "Скопирован без изменений вместе со всеми вспомогательными файлами.",
+    "recorded": "2026-08-10T08:50:43+00:00"
+  },
+  "evaluations": [],
+  "usage": {
+    "count": 0,
+    "last_used": null,
+    "log": []
+  },
+  "review": {
+    "requested": false,
+    "requested_date": null,
+    "reason": null
+  },
+  "deprecated": false,
+  "deprecated_reason": null,
+  "description_ru": "Использовать перед тем, как заявить, что работа завершена, исправлена или проходит тесты — до коммита или PR. Требует реально прогнать проверочные команды и подтвердить результат, прежде чем заявлять об успехе; свидетельство раньше утверждения.",
+  "card": {
+    "examples": [
+      "«Собираюсь заявить, что работа исправлена/готова/тесты проходят» → verification-before-completion — обязательно прогнать проверочные команды",
+      "«Работа явно не завершена, ничего пока не заявляется» → неприменимо ещё"
+    ],
+    "related": [
+      {
+        "name": "test-driven-development",
+        "why": "TDD пишет тест заранее; verification-before-completion проверяет результат перед тем, как заявить об успехе"
+      },
+      {
+        "name": "final-quality-gate",
+        "why": "более общая универсальная проверка качества ответа"
+      }
+    ],
+    "not_when_note": null
+  }
+}

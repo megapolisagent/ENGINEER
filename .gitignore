@@ -11,3 +11,6 @@ Thumbs.db
 # Редакторы
 .vscode/
 .idea/
+
+# Локальные, машино-специфичные разрешения — не для общей истории
+.claude/settings.local.json
