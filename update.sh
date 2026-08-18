@@ -59,11 +59,29 @@ main() {
 
   echo "Обновляю служебную часть:"
 
+  # Маркер локальной адаптации внутри отдельного служебного файла — та же
+  # конвенция, что уже понимает `skillctl.py compare` в Skill System: всё
+  # до строки "## Локальная адаптация" — канон, всё после — свой, не
+  # сверяемый слой. Найдено и исправлено 2026-08-18: cp -R целиком стирал
+  # такой слой молча (реальный случай — instructions/pre-task-check.md
+  # у Researcher).
+  MARKER="## Локальная адаптация"
+
   for papka in "${SLUZHEBNYE_PAPKI[@]}"; do
     if [ -d "$TMP/$papka" ]; then
       mkdir -p "$papka"
-      cp -R "$TMP/$papka/." "$papka/"
-      echo "   $papka"
+      while IFS= read -r -d '' src; do
+        rel="${src#"$TMP/"}"
+        mkdir -p "$(dirname "$rel")"
+        if [ -f "$rel" ] && grep -qxF "$MARKER" "$rel"; then
+          khvost="$(awk -v m="$MARKER" 'BEGIN{p=0} $0==m{p=1} p' "$rel")"
+          cp "$src" "$rel"
+          printf '\n%s\n' "$khvost" >> "$rel"
+        else
+          cp "$src" "$rel"
+        fi
+      done < <(find "$TMP/$papka" -type f -print0)
+      echo "   $papka (локальная адаптация внутри файлов сохранена, если была)"
     fi
   done
 
