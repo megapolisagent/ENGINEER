@@ -1,7 +1,23 @@
 {
   "permissions": {
+    "defaultMode": "auto",
     "allow": [
-      "Bash(*)"
+      "Bash(*)",
+      "mcp__exa__web_search_exa"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"C:\\Users\\bogol\\OneDrive\\Рабочий стол\\ENGINEER\\.claude\\hooks\\entry-gate-check.py\"",
+            "statusMessage": "Проверяю Entry Gate (workspace/<дата>-задача-*.md)..."
+          }
+        ]
+      }
     ]
   }
 }
