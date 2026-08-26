@@ -1,16 +1,36 @@
-# Временная папка, создаётся update.sh на время обновления
+# Временные папки проекта
 .obnovlenie-tmp/
-
-# Мусор установщика, если установка была прервана
 .sklad-tmp/
 
-# ОС
+# Переменные окружения и ключи
+.env
+.env.local
+*.env
+*.pem
+*.key
+
+# Локальные настройки и редакторы
+.vscode/
+.idea/
+.claude/settings.local.json
 .DS_Store
 Thumbs.db
 
-# Редакторы
-.vscode/
-.idea/
+# Логи и временные файлы
+*.log
+*.tmp
+*.bak
 
-# Локальные, машино-специфичные разрешения — не для общей истории
-.claude/settings.local.json
+# Окружения и зависимости (Python / Node.js)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+node_modules/
+dist/
+build/
+
+# Локальные базы данных
+*.sqlite
+*.sqlite3
+*.db

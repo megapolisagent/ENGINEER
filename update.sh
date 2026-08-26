@@ -33,7 +33,10 @@ main() {
   # update.sh тоже исключён из само-обновления: пока апстрим-версия Foundation
   # не несёт того же исправления, самообновление вернуло бы старый (небезопасный)
   # список при следующем запуске и свело бы эту правку на нет.
-  SLUZHEBNYE_FAYLY=()
+  # .gitignore добавлен 2026-08-26: чистый служебный файл без точек расширения
+  # специализации, безопасен для целиком-перезаписи — но только с маркером
+  # "## Локальная адаптация" (тот же цикл ниже, что и для SLUZHEBNYE_PAPKI).
+  SLUZHEBNYE_FAYLY=(".gitignore")
 
   # Личные файлы — список для проверки, что мы их не задели.
   LICHNYE=("PROFILE.md" "SOUL.md" "MEMORY.md" "memory" "knowledge" "workspace")
@@ -87,8 +90,15 @@ main() {
 
   for fayl in "${SLUZHEBNYE_FAYLY[@]}"; do
     if [ -f "$TMP/$fayl" ]; then
-      cp "$TMP/$fayl" "$fayl"
-      echo "   $fayl"
+      mkdir -p "$(dirname "$fayl")"
+      if [ -f "$fayl" ] && grep -qxF "$MARKER" "$fayl"; then
+        khvost="$(awk -v m="$MARKER" 'BEGIN{p=0} $0==m{p=1} p' "$fayl")"
+        cp "$TMP/$fayl" "$fayl"
+        printf '\n%s\n' "$khvost" >> "$fayl"
+      else
+        cp "$TMP/$fayl" "$fayl"
+      fi
+      echo "   $fayl (локальная адаптация сохранена, если была)"
     fi
   done
 
