@@ -87,7 +87,7 @@ Engineer сам решает, когда действовать сразу, а �
 ```
 skills/
 ├── repository-design/SKILL.md         ← как собрать и проверить репозиторий агента
-├── decision-documentation/SKILL.md    ← формат значимых решений (DECISIONS.md)
+├── skill-authoring/SKILL.md           ← как писать новый Skill по TDD (Iron Law)
 ├── tool-selection/SKILL.md            ← какой инструмент выбрать под задачу
 └── installer/SKILL.md                 ← подключает Skills из Skill System
 
