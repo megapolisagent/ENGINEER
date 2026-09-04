@@ -39,14 +39,13 @@ Proposal → Discussion → Locked
 
 ## Журнал
 
+### 2026-09-04 — Укрепление контура Engineer (Блок 1 матрицы Кодекса): 10 скиллов, delegation-ledger, Capability Gap Gate
+
+Статус: Locked — полный текст перенесён в `DECISIONS_ARCHIVE.md` (тот же заголовок и дата).
+
 ### 2026-09-04 — Реверс: `skill-creator` не был заменён `skill-authoring`, деprecation отменён; введён Deprecation Parity Gate
 
-Статус: Locked
-Что решается: владелец потребовала независимого разбора Кодексом причины, по которой Инженер объявляет рабочие индустриальные стандарты устаревшими без глубокой проверки. Разбор Кодекса (запуск 2026-09-04, файл задания и полный вывод — `workspace/agent-runs/`, см. Источник) подтвердил конкретный, ранее не замеченный факт: решение 2026-08-13 «`skill-creator` заменён `skill-authoring`» (`Skill System/skills/skill-creator/evidence.json`, DEPRECATED) не подкреплено сверкой возможностей. Оригинал `skill-creator` (Anthropic) — 327 строк SKILL.md + 8 рабочих Python-скриптов (`run_eval.py`, `run_loop.py`, `aggregate_benchmark.py`, `improve_description.py`, `generate_report.py`, `package_skill.py`, `quick_validate.py`, `utils.py`) + HTML eval-viewer + 3 файла суб-агентных промптов. `skill-authoring` — 77 строк, ноль скриптов. Собственный capability-аудит днём раньше (2026-08-12, `DECISIONS_ARCHIVE.md`) сам предупреждал: перенос требует адаптации eval-инфраструктуры, иначе «риск бегло сделанного авторства, не решение» — предупреждение проигнорировано на следующий день.
-Решение: `skill-creator` возвращён в активный статус (`skillctl.py undeprecate`, `Skill System/skills/skill-creator/evidence.json`, поле `reactivations`) как рабочий тулинг (скрипты/эвалы). `skill-authoring` остаётся действующим — это методология поверх него, не замена; оба нужны, решают разные части одной задачи. В `instructions/pre-task-check.md` добавлен **Deprecation Parity Gate**: перед любой пометкой DEPRECATED/«заменён X» — обязательная построчная сверка возможностей старого и нового артефакта, явная фиксация непереехавшего.
-Обоснование: правило «Решение не пересматривается без нового факта» соблюдено — новый факт есть (независимая построчная сверка файлов, которой не было в 2026-08-13). Второй, подтверждающий эпизод той же сессии: Инженер сначала отверг `npx skills` как «у нас уже есть installer/SKILL.md», развернул мнение только после реального теста — тот же паттерн: сравнение по названию вместо содержимого.
-Отклонённые альтернативы: оставить `skill-creator` в DEPRECATED и просто дописать `skill-authoring` скриптами задним числом — отклонено, это скрыло бы факт ошибки вместо того, чтобы завести forcing function против её повтора; удалить `skill-authoring` в пользу оригинала — отклонено, `skill-authoring` уже адаптирован под здешние точки входа (`HOME.md`, `workspace/<дата>-задача-*.md`, формат `DECISIONS.md`), это не мусор, а нужный переходный слой.
-Источник: задание и полный вывод Кодекса — `workspace/agent-runs/2026-09-04-codex-15skills-and-deprecation-audit-{prompt,output}.md`; `Skill System/skills/skill-creator/evidence.json` (`reactivations`); `DECISIONS_ARCHIVE.md`, записи 2026-08-12 и 2026-08-13; `instructions/pre-task-check.md`, «Deprecation Parity Gate».
+Статус: Locked — полный текст перенесён в `DECISIONS_ARCHIVE.md` (тот же заголовок и дата).
 
 ### 2026-09-02 — Три архитектурных правила экосистемы: Reviewer Gate, Clarification Protocol как жёсткий стоп, Worktree Pruning
 
