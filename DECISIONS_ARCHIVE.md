@@ -752,3 +752,25 @@ Root cause: у Engineer нет по умолчанию требования пр
 Обоснование: правило «Решение не пересматривается без нового факта» соблюдено — новый факт есть (независимая построчная сверка файлов, которой не было в 2026-08-13). Второй, подтверждающий эпизод той же сессии: Инженер сначала отверг `npx skills` как «у нас уже есть installer/SKILL.md», развернул мнение только после реального теста — тот же паттерн: сравнение по названию вместо содержимого.
 Отклонённые альтернативы: оставить `skill-creator` в DEPRECATED и просто дописать `skill-authoring` скриптами задним числом — отклонено, это скрыло бы факт ошибки вместо того, чтобы завести forcing function против её повтора; удалить `skill-authoring` в пользу оригинала — отклонено, `skill-authoring` уже адаптирован под здешние точки входа (`HOME.md`, `workspace/<дата>-задача-*.md`, формат `DECISIONS.md`), это не мусор, а нужный переходный слой.
 Источник: задание и полный вывод Кодекса — `workspace/agent-runs/2026-09-04-codex-15skills-and-deprecation-audit-{prompt,output}.md`; `Skill System/skills/skill-creator/evidence.json` (`reactivations`); `DECISIONS_ARCHIVE.md`, записи 2026-08-12 и 2026-08-13; `instructions/pre-task-check.md`, «Deprecation Parity Gate».
+
+### 2026-09-04 — Первый реальный прогон Capability Gap Gate: 15 скиллов распределены по 4 агентам
+
+Статус: Locked (владелец: «да подтверждаю» на предложенную таблицу подключений)
+Что решается: после импорта всех 20 скиллов из матрицы 15 источников в Skill System —
+прогнала сам новый Capability Gap Gate (внесён этим же днём) на всех действующих агентах,
+предложила владельцу таблицу конкретных подключений до, не после установки.
+Подключено: AI Marketing Strategist — `pricing`, `revops` (лежали в библиотеке с 27.08,
+не были подключены — реальный пропуск, не новое решение), `competitor-profiling`,
+`competitors`, `content-strategy`, `lead-magnets`, `cro`, `humanizer`, `grilling`+`grill-me`.
+AI Avitolog — `lead-magnets`, `cro`, `humanizer`. AI Intelligence (Researcher) —
+`last30days-skill`. ENGINEER (себе) — `andrej-karpathy-skills`.
+Не подключено никому, осознанно: `taste-skill`/`hyperframes`/`openmontage`/`tldraw-offline`
+(нет дизайн/видео-агента), `caveman`/`pohuy` (риск сломать уже зафиксированный Tone of Voice
+консультативных агентов), `graphify` (рано), `obsidian-skills` (открытый вопрос владельцу —
+ведёт ли она `knowledge/` через реальный Obsidian-vault), `oh-my-openagent` (не Skill).
+Полные записи о подключении и обоснование под каждого агента — в его собственном
+`DECISIONS.md` (не централизовано здесь, `LIFECYCLE.md`, §10 — находка о работе агента живёт
+у него дома).
+Источник: `workspace/agent-runs/2026-09-04-codex-15skills-and-deprecation-audit-output.md`;
+`AI Marketing Strategist/DECISIONS.md`, `AI Avitolog/DECISIONS.md`,
+`AI Intelligence/DECISIONS.md`, все записи 2026-09-04.
