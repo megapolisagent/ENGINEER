@@ -39,6 +39,38 @@ Proposal → Discussion → Locked
 
 ## Журнал
 
+### 2026-09-04 — Proposal: архитектура Telegram-мост → headless Claude Code на VPS
+
+Статус: Proposal
+Что решается: владелец решила переносить экосистему на VPS с управлением через Telegram, но
+явно отклонила сторонний харнесс (Hermes) — «сторонние коробочные решения... ставить не будем»,
+чтобы не терять локальную дисциплину (`HOME.md`/`DECISIONS.md`/Skill System). Поручено
+исследовать реальные OSS-паттерны (Researcher), аудировать их и предложить план (Engineer).
+Найдено Researcher (реальные, напрямую проверенные репозитории, не гипотезы):
+`RichardAtCT/claude-code-telegram` (multi-user whitelist, лимит стоимости, rate limiting, без
+встроенного VPS-деплоя) и `Mark-Life/telegram-claude-codex` (single-user whitelist,
+встроенный `systemd`+`journald`+lingering деплой, Claude SDK in-process + спавн `codex exec`,
+без лимита стоимости). Оба без тяжёлой веб-панели (FastAPI-слой у первого опционален и
+выключен по умолчанию, у второго веб-слоя нет вовсе) — проходят требование владельца.
+Решение (аудит и синтез Engineer, полный текст —
+`workspace/2026-09-04-задача-telegram-vps-bridge-plan.md`): база — форк
+`Mark-Life/telegram-claude-codex` в `megapolisagent` (single-user whitelist ближе к реальному
+использованию, long-polling не требует открытого входящего порта), сверху добавляются:
+жёсткий дневной лимит стоимости (идея от второго найденного проекта, своя реализация через
+`total_cost_usd` из `--output-format json`), `task_id`+запись в `delegation-ledger.md` на
+каждый вызов от бота, ограничение working directory списком известных агентов, применение
+уже существующего `instructions/external-script-safety.md` и на VPS.
+Открыто, не решено этим Proposal: способ авторизации Claude Code на VPS (логин/API-ключ);
+как cron-запускаемые ночные брифы проходят Delegation Gate без живого подтверждения каждый
+раз (предложен заранее одобренный фиксированный список брифов, не разовое согласование);
+численная оценка стоимости VPS+вызовов в масштабе.
+Отклонённые альтернативы: Hermes Agent как харнесс — отклонено владельцем явно, тема закрыта
+предыдущим Proposal этого же дня; `RichardAtCT/claude-code-telegram` как база — отклонено,
+multi-user модель избыточна для одного владельца, отсутствие встроенного VPS-деплоя означало
+бы строить его с нуля, когда второй проект уже даёт его готовым.
+Источник: `AI Intelligence/knowledge/evidence/2026-09-04-telegram-headless-claude-code-bridge-vps-logging.md`;
+`workspace/2026-09-04-задача-telegram-vps-bridge-plan.md`.
+
 ### 2026-09-04 — Proposal: регламент безопасного сбора данных (Авито, застройщики, Telegram, last30days)
 
 Статус: Proposal
