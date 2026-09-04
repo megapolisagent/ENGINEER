@@ -39,6 +39,28 @@ Proposal → Discussion → Locked
 
 ## Журнал
 
+### 2026-09-04 — Первый реальный прогон Capability Gap Gate: 15 скиллов распределены по 4 агентам
+
+Статус: Locked (владелец: «да подтверждаю» на предложенную таблицу подключений)
+Что решается: после импорта всех 20 скиллов из матрицы 15 источников в Skill System —
+прогнала сам новый Capability Gap Gate (внесён этим же днём) на всех действующих агентах,
+предложила владельцу таблицу конкретных подключений до, не после установки.
+Подключено: AI Marketing Strategist — `pricing`, `revops` (лежали в библиотеке с 27.08,
+не были подключены — реальный пропуск, не новое решение), `competitor-profiling`,
+`competitors`, `content-strategy`, `lead-magnets`, `cro`, `humanizer`, `grilling`+`grill-me`.
+AI Avitolog — `lead-magnets`, `cro`, `humanizer`. AI Intelligence (Researcher) —
+`last30days-skill`. ENGINEER (себе) — `andrej-karpathy-skills`.
+Не подключено никому, осознанно: `taste-skill`/`hyperframes`/`openmontage`/`tldraw-offline`
+(нет дизайн/видео-агента), `caveman`/`pohuy` (риск сломать уже зафиксированный Tone of Voice
+консультативных агентов), `graphify` (рано), `obsidian-skills` (открытый вопрос владельцу —
+ведёт ли она `knowledge/` через реальный Obsidian-vault), `oh-my-openagent` (не Skill).
+Полные записи о подключении и обоснование под каждого агента — в его собственном
+`DECISIONS.md` (не централизовано здесь, `LIFECYCLE.md`, §10 — находка о работе агента живёт
+у него дома).
+Источник: `workspace/agent-runs/2026-09-04-codex-15skills-and-deprecation-audit-output.md`;
+`AI Marketing Strategist/DECISIONS.md`, `AI Avitolog/DECISIONS.md`,
+`AI Intelligence/DECISIONS.md`, все записи 2026-09-04.
+
 ### 2026-09-04 — Укрепление контура Engineer (Блок 1 матрицы Кодекса): 10 скиллов, delegation-ledger, Capability Gap Gate
 
 Статус: Locked — полный текст перенесён в `DECISIONS_ARCHIVE.md` (тот же заголовок и дата).

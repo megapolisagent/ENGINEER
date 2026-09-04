@@ -95,6 +95,7 @@
 | grill-me | Тонкий переключатель на `grilling` (`disable-model-invocation: true` — вызывается явно, не автоматически) | ✅ | Из `mattpocock/skills`. Установлен 2026-09-04, тот же повод |
 | domain-modeling | Обсуждение терминологии кодовой базы, ведение `CONTEXT.md`/ADR | ✅ | Из `mattpocock/skills`, в библиотеке с 2026-08-17. Установлен локально 2026-09-04 |
 | grill-with-docs | Тонкий переключатель на `grilling`+`domain-modeling` вместе (`disable-model-invocation: true`) | ✅ | Из `mattpocock/skills`. Установлен 2026-09-04, тот же повод |
+| andrej-karpathy-skills | Пишу/правлю код (свой или чужого агента) — против переусложнения, самоуверенных допущений, расползающегося диффа | ✅ | Из `multica-ai/andrej-karpathy-skills` (внутреннее имя источника `karpathy-guidelines`). Установлен 2026-09-04 |
 
 > «Установлен» — физически стоит и работает. «Статус в Skill System» — независимая от этого шкала: прошёл ли Skill собственную evidence-проверку. `VERIFIED · LIVE` получено через `skillctl.py evaluate`, с явным одобрением владельца на переходе — не самозаявлено.
 
