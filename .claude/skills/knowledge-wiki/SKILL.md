@@ -67,6 +67,7 @@ Report both lists; fixing them is a separate, explicit step, not automatic on li
 - **No autoload at session start.** `knowledge/` is read point-by-point, under a task — never dumped into context up front. This is `.claude/rules/memory-rules.md`'s own existing rule; this skill doesn't change it, it just gives the point-by-point reads a real structure to land on.
 - **No background capture.** Nothing here runs between turns or after the session ends. If a fact is worth keeping, it gets written in the same turn it surfaced, by the agent, as part of the conversation — not queued for a worker process that doesn't exist.
 - **No database, no embeddings, no external API call.** `index.md` is the entire search mechanism. If `knowledge/` grows large enough that a flat index genuinely stops working, that's a real signal to revisit — not a reason to add infrastructure preemptively now.
+- **No changelog, no change-history articles.** `knowledge/` holds the current state of a fact, not the story of how it got that way. When a skill, rule, or file is replaced, removed, or updated, edit or replace the relevant page in place so it reflects the new state — don't add a page narrating what was found, what changed, and why. `git log` is the history; a second, hand-written one here goes stale the moment it stops matching the real one. Ingest mode step 3 ("write or update the right page") means this literally: update in place.
 
 ## When not to use
 
