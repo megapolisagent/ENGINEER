@@ -34,3 +34,7 @@ build/
 *.sqlite
 *.sqlite3
 *.db
+
+# Служебные артефакты установщиков скиллов / пакетных менеджеров
+.agents/
+skills-lock.json
