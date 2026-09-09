@@ -17,19 +17,5 @@
       "Read(./**/package-lock.json)",
       "Read(./**/poetry.lock)"
     ]
-  },
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Write|Edit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python3 \"C:\\Users\\bogol\\OneDrive\\Рабочий стол\\ENGINEER\\.claude\\hooks\\entry-gate-check.py\"",
-            "statusMessage": "Проверяю Entry Gate (workspace/<дата>-задача-*.md)..."
-          }
-        ]
-      }
-    ]
   }
 }
