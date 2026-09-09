@@ -16,6 +16,7 @@ How this home's `knowledge/` layer (level 3 of `.claude/rules/memory-rules.md`) 
 ```
 knowledge/
   index.md              — one line per page, the only thing read in full every time
+  open-questions.md      — unresolved forks waiting on a future session, not facts (see below)
   sources/<slug>.md      — a fact/finding tied to a specific origin (a bug, a repo audit, a session discovery)
   entities/<slug>.md     — a specific tool, repo, service, or system knowledge accumulates about
   concepts/<slug>.md      — an idea, pattern, or principle that isn't tied to one origin
@@ -23,6 +24,8 @@ knowledge/
 ```
 
 Not every category needs every type populated. A page belongs to exactly one type — if unsure, `sources` is the default (a dated finding is almost always a source page).
+
+**`open-questions.md` is the one exception to "current state only."** It holds forks that are genuinely still open — evaluated something, not adopting it now, but expect to revisit — compressed to three lines each: what the thing is, what's currently blocking it, what to decide next time. Not a page per item, one running list, same spirit as `index.md`. When a fork gets decided (adopted, or dropped for good) its line comes out — either folded into a normal page as a stated fact, or just deleted if there's nothing worth keeping.
 
 ## Every page carries a category
 
