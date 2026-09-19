@@ -11,6 +11,7 @@
 - `AI Avitolog`
 - `AI Legal Constructor`
 - `AI Intelligence` (`../ПРОЕКТЫ/AI Intelligence`, старый Foundation-канон, `skills/` не `.claude/skills/`)
+- `AI Copywriter` (`../ПРОЕКТЫ/AI Copywriter`, создан 2026-09-19 — первый агент, собранный на чистом каркасе `pipeline-architecture.md` §9 уже с фиксом Foundation `instructions/`; Composability Gate/Confirmation Gate ещё не прогонялись, строка пустая до первого прогона)
 
 Список сверяется, не берётся по памяти — см. `.claude/rules/capability-resolver.md` за тем, как убедиться, что список полон, если появился повод усомниться.
 
