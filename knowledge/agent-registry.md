@@ -54,7 +54,7 @@
 | AI Avitolog | ✅ | ✅ | ✅ |
 | AI Legal Constructor | ✅ | ✅ | ✅ (3 файла — `ask-before-searching.md` в этом доме не существует) |
 | AI Intelligence | ✅ (хук адаптирован под `instructions/`) | ✅ | ✅ (3 файла) |
-| AI Copywriter | Не проверено | Не проверено | Не проверено |
+| AI Copywriter | ❌ отсутствует (нет `.claude/hooks/`) | ❌ отсутствует (нет `.claude/hooks/`) | Не проверено |
 
 ## MCP: `${VAR}` в `.mcp.json` не резолвится из `settings.local.json`
 
