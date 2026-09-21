@@ -1,110 +1,118 @@
 # Agent Registry — статус переноса канона
 
-Единственный источник правды на вопрос «применено ли уже правило X ко всем известным агентам», а не память Engineer о том, что должно было быть сделано. Заведено 2026-09-14 по прямому найденному провалу: Composability & Tooling Gate (`.claude/rules/02-execution-gates.md`) существовал с формулировкой «применяется и к уже существующим скиллам» несколько недель, но реально ни разу не прогонялся на `AI Marketing Strategist` — обнаружено только внешней сессией, не самим Engineer.
+Единственный источник правды на вопрос «применено ли уже правило X ко всем известным агентам», а не память Engineer о том, что должно было быть сделано.
 
 Пустая ячейка или прочерк = не проверено. Не значит «прошло» — значит «неизвестно», пока не прогнано и не вписана дата.
 
+Эта страница фиксирует текущий статус, не историю его получения — кто нашёл проблему, почему, как чинили — живёт в `git log`/commit message затронутого репозитория, не в теле этой страницы (`.claude/rules/memory-rules.md`, «Целостность документа»).
+
 ## Известные агенты
 
-- `ENGINEER` (себя)
-- `AI Marketing Strategist`
-- `AI Avitolog`
-- `AI Legal Constructor`
-- `AI Intelligence` (`../ПРОЕКТЫ/AI Intelligence`, старый Foundation-канон, `skills/` не `.claude/skills/`)
-- `AI Copywriter` (`../ПРОЕКТЫ/AI Copywriter`, создан 2026-09-19 — первый агент, собранный на чистом каркасе `pipeline-architecture.md` §9 уже с фиксом Foundation `instructions/`; Composability Gate/Confirmation Gate ещё не прогонялись, строка пустая до первого прогона)
+| Агент | Путь | Особенность |
+|---|---|---|
+| ENGINEER | (себя) | — |
+| AI Marketing Strategist | `../AI Marketing Strategist` | — |
+| AI Avitolog | `../AI Avitolog` | — |
+| AI Legal Constructor | `../AI Legal Constructor` | — |
+| AI Intelligence | `../AI Intelligence` | Старый Foundation-канон — `instructions/`, не `.claude/rules/`; `skills/`, не `.claude/skills/` |
+| AI Copywriter | `../AI Copywriter` | Собран на чистом каркасе `pipeline-architecture.md` §9 |
 
-Список сверяется, не берётся по памяти — см. `.claude/rules/capability-resolver.md` за тем, как убедиться, что список полон, если появился повод усомниться.
+Список сверяется, не берётся по памяти — см. `.claude/rules/capability-resolver.md` за тем, как убедиться, что список полон.
 
-## Composability & Tooling Gate — `python3 .claude/tools/check_skill_composability.py <путь к .claude/skills агента>`
+## Composability & Tooling Gate
 
-**Обновление 2026-09-14 (Engineer, по задаче A из этого же реестра):** первый baseline-прогон содержал системный ложноположительный баг самого чекера — `CALC_SIGNAL_RE` матчил корень `формул` без разбора, ловя не только «формула» (расчёт), но и «формулировать/формулировка» (никакого отношения к вычислениям). Regex исправлен на `формул(?!ир)[а-я]*`. Оставшиеся флаги после фикса разобраны вручную, по первоисточнику (не по описанию), с цитатами — все 11 из 12 исходных флагов оказались ложным срабатыванием разного рода (риторическое «percentage»/«формула подачи», advisory-пункты чек-листов, которые скилл не обязан сам вычислять, случай `last30days-skill`, где скилл прямо запрещает пересчитывать то, что уже посчитал внешний движок). Независимо перепроверено внешней сессией — цифры и две конкретные цитаты сошлись.
+Команда: `python3 .claude/tools/check_skill_composability.py <путь к .claude/skills агента>`. Флаг — сигнал для человека, не автоматический вердикт.
 
-| Агент | Дата прогона | Скиллов | С замечаниями | Флагованные (правило 2/3) |
-|---|---|---|---|---|
-| ENGINEER | 2026-09-14 | 11 | 0 | — |
-| AI Marketing Strategist | 2026-09-14 (после regex-фикса) | 12 | 0 реальных (было 6, все ложные) | — |
-| AI Avitolog | 2026-09-14 (после regex-фикса + разбиения) | 10 | 0 реальных (было 4, 3 ложных + 1 реальный, устранён) | — |
-| AI Legal Constructor | 2026-09-14 (после regex-фикса) | 4 | 0 | — (был 1, ложный) |
-| AI Intelligence | 2026-09-14 (после regex-фикса) | 3 | 0 реальных (был 1, ложный — скилл сам запрещает пересчитывать то, что уже посчитал внешний движок) | — |
+| Агент | Дата прогона | Скиллов | Реальных замечаний |
+|---|---|---|---|
+| ENGINEER | 2026-09-14 | 11 | 0 |
+| AI Marketing Strategist | 2026-09-14 | 12 | 0 |
+| AI Avitolog | 2026-09-14 | 10 | 0 |
+| AI Legal Constructor | 2026-09-14 | 4 | 0 |
+| AI Intelligence | 2026-09-14 | 3 | 0 |
+| AI Copywriter | — | — | не прогонялось |
 
-Флаг — сигнал для человека, не автоматический вердикт. Единственный реальный пункт из всех 12 — `avito-listing-packaging` (Правило 3, не Правило 2) — устранён 2026-09-14 с явного «да» владельца по репозиторию AI Avitolog (Confirmation Gate, часть C исходной задачи): Модуль 2 разбит в `media-plan/SKILL.md`, Модуль 5 — в `market-recon/SKILL.md`, тем же методом, что уже применён к Модулям 1/3/4 (2026-09-10). `references/market-raw-data-regulation.md` переехал в `market-recon/references/`, единственная внешняя ссылка (`.claude/agents/market-analyst.md`) обновлена. `module_headers: 0` у `avito-listing-packaging` после правки — подтверждено повторным прогоном.
+## Confirmation Gate / Входной гейт
 
-## Confirmation Gate / Входной гейт — сверен с исправленным каноном FOUNDATION (2026-09-14, устранено самопротиворечие «без исключений по осям» + «оси низкие → сразу»)
+Сверено с текущим каноном FOUNDATION (без самопротиворечия «без исключений по осям» + «оси низкие → сразу»).
 
 | Агент | Статус |
 |---|---|
-| ENGINEER | Исправлено на месте, 2026-09-14 |
-| AI Marketing Strategist | Исправлено на месте, 2026-09-14 |
-| AI Avitolog | Исправлено на месте, 2026-09-14 (было прямое противоречие с §3 «Автономия» того же файла) |
-| AI Legal Constructor | Проверено — другая, более старая формулировка, баг не воспроизведён, правка не требовалась |
-| AI Intelligence | Проверено 2026-09-14 (целенаправленно, включая grep по всему репозиторию на сигнатуру бага) — та же старая формулировка, что у AI Legal Constructor, баг не воспроизведён, правка не требовалась |
+| ENGINEER | Актуальная формулировка |
+| AI Marketing Strategist | Актуальная формулировка |
+| AI Avitolog | Актуальная формулировка |
+| AI Legal Constructor | Иная, более старая формулировка — баг не воспроизводится, правка не нужна |
+| AI Intelligence | Иная, более старая формулировка — баг не воспроизводится, правка не нужна |
+| AI Copywriter | Не проверено |
 
-## Hooks (`guard-rules-bloat.sh`, `block-dangerous-git.sh`) и консолидированный `data-discipline.md`
+## Hooks (`guard-rules-bloat.sh`, `block-dangerous-git.sh`) и `data-discipline.md`
 
-| Агент | guard-rules-bloat.sh | block-dangerous-git.sh | data-discipline.md вместо 4 отдельных файлов |
+| Агент | guard-rules-bloat.sh | block-dangerous-git.sh | data-discipline.md |
 |---|---|---|---|
-| ENGINEER | ✅ (исходный) | ✅ (исходный) | ✅ (исходный, `01-data-discipline.md`) |
-| AI Marketing Strategist | ✅ перенесено 2026-09-14 | ✅ перенесено 2026-09-14 | ✅ слито 2026-09-14 |
-| AI Avitolog | ✅ перенесено 2026-09-14 | ✅ перенесено 2026-09-14 | ✅ слито 2026-09-14 |
-| AI Legal Constructor | ✅ перенесено 2026-09-14 | ✅ перенесено 2026-09-14 | ✅ слито 2026-09-14 (3 файла, не 4 — `ask-before-searching.md` в этом доме не существовал; раздел «Недостающие данные» добавлен новым для паритета с каноном) |
-| AI Intelligence | ✅ перенесено 2026-09-14 (хук адаптирован под `instructions/`, не `.claude/rules/` — старый Foundation-канон, путь матчинга и потолок файлов пересчитаны, не скопированы слепо) | ✅ перенесено 2026-09-14 | ✅ слито 2026-09-14 (3 файла, не 4 — та же причина, что у Legal Constructor) |
+| ENGINEER | ✅ | ✅ | ✅ (`01-data-discipline.md`) |
+| AI Marketing Strategist | ✅ | ✅ | ✅ |
+| AI Avitolog | ✅ | ✅ | ✅ |
+| AI Legal Constructor | ✅ | ✅ | ✅ (3 файла — `ask-before-searching.md` в этом доме не существует) |
+| AI Intelligence | ✅ (хук адаптирован под `instructions/`) | ✅ | ✅ (3 файла) |
+| AI Copywriter | Не проверено | Не проверено | Не проверено |
 
-## Баг: `${VAR}` в `.mcp.json` не резолвится из `settings.local.json` — Firecrawl/Apify/Exa молча не авторизовались
+## MCP: `${VAR}` в `.mcp.json` не резолвится из `settings.local.json`
 
-Найдено 2026-09-21, по цепочке из живого бага (CMO пожаловался на "Unauthorized: Invalid token" у Firecrawl со стороны AI Avitolog). Документированный баг самого Claude Code (`github.com/anthropics/claude-code/issues/60513`): `${VAR}`-подстановка внутри `env`-блока `.mcp.json` резолвится только из реальной переменной окружения ОС, **не** из `env`-блока `settings.local.json` — вопреки тому, что документация и интуитивная логика файла предполагают. Проект с такой конструкцией выглядит настроенным (ключ виден в `settings.local.json`), но MCP-сервер получает пустоту/буквальный текст `${VAR}` и падает на авторизации — тихо, без явного «конфиг не найден».
+Задокументированный баг Claude Code (`github.com/anthropics/claude-code/issues/60513`) — `${VAR}` в `env`-блоке `.mcp.json` резолвится только из реальной переменной окружения ОС, не из `settings.local.json`. Проверка: `grep -rn '\${[A-Z_]*}' */.mcp.json` по всем известным агентам; находка требует подтверждения реальной переменной ОС (`[Environment]::GetEnvironmentVariable`) — ключ в `settings.local.json` не считается доказательством.
 
-Обнаружено сразу в трёх местах: `AI Avitolog` (`FIRECRAWL_API_KEY`, `APIFY_TOKEN`), `AI Legal Constructor` (`FIRECRAWL_API_KEY` и **свой project-level `EXA_API_KEY`**, дублировавший и маскировавший уже рабочий глобальный Exa). Уже рабочий Exa (глобально, `~/.claude.json`) никогда не страдал этим — его ключ вписан буквально в URL, не через `${VAR}`.
-
-**Исправлено 2026-09-21:**
-
-- Firecrawl перенесён в глобальный `~/.claude.json` (буквальный ключ, схема Exa) — доступен всем агентам без project-level `.mcp.json`.
-- `APIFY_TOKEN` поставлен настоящей постоянной переменной окружения пользователя Windows (`[Environment]::SetEnvironmentVariable`, scope User) — специфичен для Avitolog (актор-конфиг привязан к его акторам), глобализировать через `~/.claude.json` не подошло бы.
-- Убраны все обнаруженные project-level дубли-костыли (`AI Avitolog/.mcp.json`, `AI Legal Constructor/.mcp.json`, временный `AI Marketing Strategist/.mcp.json`, который сам же добавила часом раньше тем же паттерном и тут же снесла).
-
-**Догнано 2026-09-21 (по прямому запросу владелицы):** `AI Copywriter` — не требуется, у него нет `.mcp.json`/веб-доступа по дизайну (текстовая роль, `WebFetch`/`Bash` запрещены сознательно). `AI Intelligence` — реальная находка: та же неработающая `"exa": {"url": "...?exaApiKey=${EXA_API_KEY}"}`, критично именно для этого агента, поскольку его единственная работа — веб-разведка. Убрано, глобальный `~/.claude.json` закрывает это без project-level записи.
-
-Механическая проверка на будущее для новых агентов: `grep -rn '\${[A-Z_]*}' */.mcp.json` — если находка есть, реальная переменная ОС существует (`[Environment]::GetEnvironmentVariable`), не считать наличие ключа в `settings.local.json` достаточным доказательством.
+| Агент | Статус |
+|---|---|
+| ENGINEER | Не применимо — нет `.mcp.json` |
+| AI Marketing Strategist | Чисто — Firecrawl глобальный (`~/.claude.json`) |
+| AI Avitolog | Чисто — Firecrawl глобальный, `APIFY_TOKEN` — переменная окружения ОС |
+| AI Legal Constructor | Чисто — Firecrawl/Exa глобальные, в `.mcp.json` остался только `clients-db` |
+| AI Intelligence | Чисто — Exa глобальный |
+| AI Copywriter | Не применимо — нет `.mcp.json`/веб-доступа по дизайну |
 
 ## Веб-доступ по умолчанию — Exa, не встроенные WebSearch/WebFetch
 
-Правило родилось в `AI Marketing Strategist` (2026-09-14), дошло до `ENGINEER` только 2026-09-19 (сам нашёл разрыв у себя). Пропущено в проверке для остальных агентов на тот момент — не Propagation Sweep, а обычный пробел.
+| Агент | Статус |
+|---|---|
+| ENGINEER | ✅ `capability-resolver.md` |
+| AI Marketing Strategist | ✅ `tool-preference.md` |
+| AI Avitolog | ✅ `capability-resolver.md` |
+| AI Legal Constructor | Не проверено — `capability-resolver.md` держит несохранённые правки параллельной сессии |
+| AI Intelligence | Не проверено |
+| AI Copywriter | Не проверено |
+
+## Гигиена памяти (`.claude/rules/memory-rules.md`)
 
 | Агент | Статус |
 |---|---|
-| ENGINEER | ✅ в `capability-resolver.md`, 2026-09-19 |
-| AI Marketing Strategist | ✅ исходный, `tool-preference.md`, 2026-09-14 |
-| AI Avitolog | ✅ добавлено в `capability-resolver.md`, 2026-09-21 — найдено владелицей вживую (активная сессия использовала `WebSearch` вместо Exa на реальной задаче) |
-| AI Legal Constructor | Не проверено — `capability-resolver.md` там сейчас держит несохранённые правки параллельной сессии, трогать нельзя до её завершения |
-| AI Intelligence / AI Copywriter | Не проверено этим заходом |
+| ENGINEER | ✅ |
+| AI Avitolog | ✅ |
+| AI Marketing Strategist | Не перенесено |
+| AI Legal Constructor | Не перенесено |
+| AI Intelligence | Не перенесено |
+| AI Copywriter | Не проверено |
 
-## Гигиена памяти («промежуточная работа удаляется, остаётся сухой остаток») — `.claude/rules/memory-rules.md`
+## Foundation `instructions/` — состав относительно текущего канона
 
-Правило внесено в ENGINEER (2026-09-14, `c0ae603`). Разрыв переноса найден не Engineer, а владельцем по памяти о прошлой работе (2026-09-17) — обнаружено, что ни в одном другом агенте раздела нет.
+Критерий: `confirmation-before-action.md` присутствует, `data-discipline.md` консолидирован (не 3 отдельных файла).
 
 | Агент | Статус |
 |---|---|
-| ENGINEER | ✅ исходный, 2026-09-14 |
-| AI Avitolog | ✅ перенесено 2026-09-17 (по конкретной задаче — сброс черновика ЖК Алия) |
-| AI Marketing Strategist | Не перенесено — отложено отдельным поводом, решение владельца 2026-09-17 |
-| AI Legal Constructor | Не перенесено — отложено отдельным поводом, решение владельца 2026-09-17 |
-| AI Intelligence | Не перенесено — отложено отдельным поводом, решение владельца 2026-09-17 |
+| AI Intelligence | ✅ актуальный состав, 6 файлов |
+| AI Marketing Strategist | Не проверено |
+| AI Avitolog | Не проверено |
+| AI Legal Constructor | Не проверено |
 
-## Foundation-канон устарел относительно собственных агентов — `instructions/` рассинхрон, найдено 2026-09-19
+## Мёртвые ссылки на до-миграционный канон (HOME.md/SOUL.md/ROUTING.md/VISION.md)
 
-При ревизии `AI Intelligence` по прямому запросу владельца («у тебя очень сложно построены агенты, разбери») обнаружено: `FOUNDATION/instructions/` (источник, из которого `update.sh` тянет обновления всем агентам) держал **старую, не слитую** версию дисциплины данных — отдельно `direct-reading-policy.md`/`direct-response-policy.md`/`verify-before-analyze.md` — хотя консолидация в один `data-discipline.md` уже была сделана 2026-09-14 и перенесена вручную на все пять известных агентов. `update.sh`, запущенный в этом состоянии, откатил бы уже сделанную работу молча. Одновременно `AI Intelligence/HOME.md` отставал в обратную сторону — не содержал перекрёстной ссылки на `instructions/confirmation-before-action.md` (Foundation этот файл и калибровку уже имела с 2026-09-14), а сам файл физически отсутствовал в `AI Intelligence/instructions/`.
+Проверка после любого переименования/консолидации канонического файла: `grep -rn 'HOME\.md\|SOUL\.md\|ROUTING\.md'` по всему репозиторию агента, не только в файле, ради которого зашли.
 
-Исправлено 2026-09-19: `FOUNDATION/instructions/data-discipline.md` заведён (три старых файла удалены, `HOME.md` Foundation обновлён на консолидированную формулировку); `confirmation-before-action.md` скопирован в `AI Intelligence/instructions/`, `AI Intelligence/HOME.md` дополнен перекрёстной ссылкой. Оба `instructions/` теперь идентичны по составу (6 файлов).
-
-**Не проверено этим же заходом** — по остальным трём известным агентам (`AI Marketing Strategist`, `AI Avitolog`, `AI Legal Constructor`) не сверено, есть ли у них тот же разрыв с текущим состоянием Foundation (свежий `confirmation-before-action.md`/актуальный `data-discipline.md` через `update.sh` или ручной перенос) — следующий Propagation Sweep обязан закрыть эту строку, не оставлять пустой по умолчанию.
-
-## Мёртвые ссылки на до-миграционный канон (HOME.md/SOUL.md/ROUTING.md и т.п.) после перехода на единый CLAUDE.md
-
-Найдено дважды одним и тем же способом — точечная правка (одна причина, один файл) не сопровождалась проверкой, не осталось ли по репозитории агента других живых ссылок на старые имена файлов. Оба раза находил не сам факт миграции, а владелец — прямым указанием на конкретный симптом.
-
-- **AI Intelligence** (2026-09-19): 3 мёртвые ссылки на несуществующий `MECHANISM_LIBRARY.md` + одно упоминание устаревшего `VISION.md` — исправлено в `HOME.md`/`README.md`/`ROUTING.md`.
-- **AI Legal Constructor** (2026-09-21, по прямому указанию владельца после скриншота с открытым устаревшим workspace-файлом — см. `FOUNDATION/DECISIONS.md`/переписка: «изменил запятую — перепроверил всё заново, это твоя зона ответственности»): grep по `HOME\.md|SOUL\.md|ROUTING\.md` нашёл 6 живых ссылок вне архива — `.claude/skills/document-ocr/SKILL.md` (×2), `data/clients/README.md`, `knowledge/deal-risk-checklist.md` (×3), `knowledge/precedents.md`, `DECISIONS.md`, `product-saas-prototype/README.md` (архивный подпроект). Все 6 исправлены на `CLAUDE.md` или на новый реальный адрес контента (`.claude/rules/epistemic-markers.md` — «Лестница обобщения» физически переехала туда, не осталась в CLAUDE.md). Дополнительно удалён подтверждённо закрытый workspace-файл `2026-09-02-задача-фиксация-6-правил-codex.md` (все 6 правил Codex и оба критерия приёмки перепроверены по факту в текущих файлах агента, не по памяти — правило гигиены памяти, `.claude/rules/memory-rules.md`).
-
-**Не проверено этим же заходом** — `AI Marketing Strategist`, `AI Avitolog`, `AI Copywriter` не прогонялись на тот же grep-паттерн. Правило теперь: после любой значимой миграции/переименования канонического файла в любом агенте — сразу тем же заходом grep по старому имени файла на весь репозиторий (не только на файл, ради которого зашли), не полагаться на то, что «раз я переименовала файл наверху — все ссылки на него автоматически стали неактуальны и это не мой вопрос».
+| Агент | Статус |
+|---|---|
+| AI Intelligence | ✅ чисто |
+| AI Legal Constructor | ✅ чисто |
+| AI Marketing Strategist | Не проверено |
+| AI Avitolog | Не проверено |
+| AI Copywriter | Не применимо — не мигрировал с этой схемы |
 
 ## Как использовать эту страницу
 
