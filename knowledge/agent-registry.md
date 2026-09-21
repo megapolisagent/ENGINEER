@@ -56,6 +56,18 @@
 | AI Intelligence | ✅ (хук адаптирован под `instructions/`) | ✅ | ✅ (3 файла) |
 | AI Copywriter | ❌ отсутствует (нет `.claude/hooks/`) | ❌ отсутствует (нет `.claude/hooks/`) | Не проверено |
 
+## MCP: Windows-баг Claude Code — `npx` без `cmd /c` не стартует (CONNECT_TIMEOUT)
+
+Задокументированный баг Claude Code на Windows (`github.com/anthropics/claude-code/issues/68221`, `#58510`, `#3369`) — MCP-сервер с `"command": "npx"` спавнится напрямую, без shell; `npx` на Windows — `.cmd`-шим, `child_process.spawn` не может выполнить его без `shell: true` (защита после CVE-2024-27980). Проявляется как `CONNECT_TIMEOUT` через 30000мс, не как явная ошибка — воспроизводится даже после рестарта сессии. Прямое рукопожатие с тем же сервером вне спавна Claude Code проходит за секунды — сервер/токен не виноваты. Решение — оборачивать: `"command": "cmd", "args": ["/c", "npx", ...]`.
+
+| Агент | Статус |
+|---|---|
+| ~/.claude.json (глобально: context7, firecrawl) | ✅ обёрнуто |
+| AI Avitolog (apify) | ✅ обёрнуто — **не подтверждено реальным подключением**, ждёт рестарта сессии и проверки Авитологом |
+| AI Legal Constructor (clients-db) | ✅ обёрнуто, не проверено (параллельная сессия) |
+| AI Marketing Strategist, AI Copywriter | Не применимо — нет project-level `npx`-серверов |
+| AI Intelligence | Использует `uvx` (нативный `.exe`, не `.cmd`-шим) — тот же баг не воспроизводится, не трогала |
+
 ## MCP: `${VAR}` в `.mcp.json` не резолвится из `settings.local.json`
 
 Задокументированный баг Claude Code (`github.com/anthropics/claude-code/issues/60513`) — `${VAR}` в `env`-блоке `.mcp.json` резолвится только из реальной переменной окружения ОС, не из `settings.local.json`. Проверка: `grep -rn '\${[A-Z_]*}' */.mcp.json` по всем известным агентам; находка требует подтверждения реальной переменной ОС (`[Environment]::GetEnvironmentVariable`) — ключ в `settings.local.json` не считается доказательством.
