@@ -69,6 +69,19 @@
 | AI Intelligence | Чисто — Exa глобальный |
 | AI Copywriter | Не применимо — нет `.mcp.json`/веб-доступа по дизайну |
 
+## Exa: `web_fetch_exa` может молча отдать устаревший кэш вместо live-данных
+
+MCP-инструмент `mcp__exa__web_fetch_exa` не передаёт параметр свежести API Exa (`maxAgeHours`) — нет способа заставить его дать живой ответ через обычный вызов, и нет сигнала, что ответ пришёл из кэша. Для цены/наличия/любого live-факта — прямой `curl` к `api.exa.ai/contents` с `maxAgeHours: 0` (ключ — переменная окружения `EXA_API_KEY`, поставлена на уровне пользователя ОС).
+
+| Агент | Статус |
+|---|---|
+| ENGINEER | ✅ `capability-resolver.md` |
+| AI Avitolog | ✅ `capability-resolver.md` |
+| AI Marketing Strategist | ✅ `tool-preference.md` |
+| AI Legal Constructor | Не перенесено — `capability-resolver.md` держит несохранённые правки параллельной сессии |
+| AI Intelligence | Не перенесено — базового правила «Exa по умолчанию» там ещё нет вообще, добавлять кэш-оговорку раньше основы преждевременно |
+| AI Copywriter | Не применимо — нет веб-доступа по дизайну |
+
 ## Веб-доступ по умолчанию — Exa, не встроенные WebSearch/WebFetch
 
 | Агент | Статус |
