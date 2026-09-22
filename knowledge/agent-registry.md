@@ -29,6 +29,7 @@ Google Sheets, spreadsheetId `1mgrnPiPY3oJJJQOqAzgRNKWuj4u41OLxLggNRyOUFdM` (с�
 | AI Legal Constructor | `../AI Legal Constructor` | — |
 | AI Intelligence | `../AI Intelligence` | Старый Foundation-канон — `instructions/`, не `.claude/rules/`; `skills/`, не `.claude/skills/` |
 | AI Copywriter | `../AI Copywriter` | Собран на чистом каркасе `pipeline-architecture.md` §9 |
+| AI Brand Architect | `../AI Brand Architect` | Собран 2026-09-22 на чистом каркасе `pipeline-architecture.md` §9. Граница с CMO по личному бренду — открытый вопрос в собственном `CLAUDE.md` §2, ждёт «да» владелицы |
 
 Список сверяется, не берётся по памяти — см. `.claude/rules/capability-resolver.md` за тем, как убедиться, что список полон.
 
@@ -44,6 +45,7 @@ Google Sheets, spreadsheetId `1mgrnPiPY3oJJJQOqAzgRNKWuj4u41OLxLggNRyOUFdM` (с�
 | AI Legal Constructor | 2026-09-14 | 4 | 0 |
 | AI Intelligence | 2026-09-14 | 3 | 0 |
 | AI Copywriter | — | — | не прогонялось |
+| AI Brand Architect | 2026-09-22 | 9 | 2 флага (`brand-context`, `brand-guidelines` — признак расчёта в тексте без `tools/`), проверены вручную: субъективная оценка (например «X/10» для варианта имени) экспертным суждением агента, не детерминированная формула — Script-First сюда не применим, ложное срабатывание |
 
 ## Confirmation Gate / Входной гейт
 
@@ -57,6 +59,7 @@ Google Sheets, spreadsheetId `1mgrnPiPY3oJJJQOqAzgRNKWuj4u41OLxLggNRyOUFdM` (с�
 | AI Legal Constructor | Иная, более старая формулировка — баг не воспроизводится, правка не нужна |
 | AI Intelligence | Иная, более старая формулировка — баг не воспроизводится, правка не нужна |
 | AI Copywriter | Не проверено |
+| AI Brand Architect | Актуальная формулировка (`CLAUDE.md` §5, собран после этой правки канона) |
 
 ## Hooks (`guard-rules-bloat.sh`, `block-dangerous-git.sh`) и `data-discipline.md`
 
@@ -68,6 +71,7 @@ Google Sheets, spreadsheetId `1mgrnPiPY3oJJJQOqAzgRNKWuj4u41OLxLggNRyOUFdM` (с�
 | AI Legal Constructor | ✅ | ✅ | ✅ (3 файла — `ask-before-searching.md` в этом доме не существует) |
 | AI Intelligence | ✅ (хук адаптирован под `instructions/`) | ✅ | ✅ (3 файла) |
 | AI Copywriter | ❌ отсутствует (нет `.claude/hooks/`) | ❌ отсутствует (нет `.claude/hooks/`) | Не проверено |
+| AI Brand Architect | ❌ отсутствует (нет `.claude/hooks/`) | ❌ отсутствует (нет `.claude/hooks/`) | ✅ |
 
 ## MCP: `npx`-сервер не стартует на Windows (CONNECT_TIMEOUT)
 
@@ -84,7 +88,7 @@ MCP-сервер с `"command": "npx"` регулярно не подключа�
 | ~/.claude.json (глобально: context7, firecrawl) | ✅ прямой `node`, подтверждено в реальной сессии Авитолога (context7/firecrawl оба видны и рабочие) |
 | AI Avitolog (apify) | ✅ прямой `node`, сервер исправен — стабильность самого Apify (не конфига) под вопросом, переподключение решает в ~75% попыток |
 | AI Legal Constructor (clients-db) | ✅ прямой `node`, не проверено в реальной сессии (параллельная сессия держит остальные файлы) |
-| AI Marketing Strategist, AI Copywriter | Не применимо — нет project-level `npx`-серверов |
+| AI Marketing Strategist, AI Copywriter, AI Brand Architect | Не применимо — нет project-level `npx`-серверов |
 | AI Intelligence | Использует `uvx` (нативный `.exe`, не `.cmd`-шим) — тот же баг не воспроизводится, не трогала |
 
 ## MCP: `${VAR}` в `.mcp.json` не резолвится из `settings.local.json`
@@ -99,6 +103,7 @@ MCP-сервер с `"command": "npx"` регулярно не подключа�
 | AI Legal Constructor | Чисто — Firecrawl/Exa глобальные, в `.mcp.json` остался только `clients-db` |
 | AI Intelligence | Чисто — Exa глобальный |
 | AI Copywriter | Не применимо — нет `.mcp.json`/веб-доступа по дизайну |
+| AI Brand Architect | Не применимо — нет `.mcp.json` |
 
 ## Exa: `web_fetch_exa` может молча отдать устаревший кэш вместо live-данных
 
@@ -112,6 +117,7 @@ MCP-инструмент `mcp__exa__web_fetch_exa` не передаёт пар�
 | AI Legal Constructor | Не перенесено — `capability-resolver.md` держит несохранённые правки параллельной сессии |
 | AI Intelligence | Не перенесено — базового правила «Exa по умолчанию» там ещё нет вообще, добавлять кэш-оговорку раньше основы преждевременно |
 | AI Copywriter | Не применимо — нет веб-доступа по дизайну |
+| AI Brand Architect | ✅ `capability-resolver.md` |
 
 ## Веб-доступ по умолчанию — Exa, не встроенные WebSearch/WebFetch
 
@@ -123,6 +129,7 @@ MCP-инструмент `mcp__exa__web_fetch_exa` не передаёт пар�
 | AI Legal Constructor | Не проверено — `capability-resolver.md` держит несохранённые правки параллельной сессии |
 | AI Intelligence | Не проверено |
 | AI Copywriter | Не проверено |
+| AI Brand Architect | ✅ `capability-resolver.md` |
 
 ## Гигиена памяти (`.claude/rules/memory-rules.md`)
 
@@ -134,6 +141,7 @@ MCP-инструмент `mcp__exa__web_fetch_exa` не передаёт пар�
 | AI Legal Constructor | Не перенесено |
 | AI Intelligence | Не перенесено |
 | AI Copywriter | Не проверено |
+| AI Brand Architect | ✅ (перенесено без сокращений при сборке) |
 
 ## Foundation `instructions/` — состав относительно текущего канона
 
