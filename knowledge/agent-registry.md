@@ -61,6 +61,20 @@ Google Sheets, spreadsheetId `1mgrnPiPY3oJJJQOqAzgRNKWuj4u41OLxLggNRyOUFdM` (с�
 | AI Copywriter | Не проверено |
 | AI Brand Architect | Актуальная формулировка (`CLAUDE.md` §5, собран после этой правки канона) |
 
+## Scenario Acceptance Gate / Feedback-to-Regression Gate / «Владелец профессионального результата»
+
+Правка `CLAUDE.md` §2–§3 и `.claude/rules/02-execution-gates.md` (2026-09-22): обязанность проверять агента на реальных сценариях перед сдачей, принцип «максимум полезного действия в безопасной зоне», обязательный цикл при повторной жалобе владельца. Правило описывает процесс самого Инженера при сборке/доработке чужих агентов — не поведение, которое встраивается в паспорт CMO/Авитолога/Юриста и т.п.
+
+| Агент | Статус |
+|---|---|
+| ENGINEER | Внедрено — процесс применяется самим Инженером при сборке/доработке |
+| AI Marketing Strategist | Не требуется — правило про процесс сборки Инженером, не про паспорт агента |
+| AI Avitolog | Не требуется — то же |
+| AI Legal Constructor | Не требуется — то же |
+| AI Intelligence | Не требуется — то же |
+| AI Copywriter | Не требуется — то же |
+| AI Brand Architect | Не требуется — то же |
+
 ## Hooks (`guard-rules-bloat.sh`, `block-dangerous-git.sh`) и `data-discipline.md`
 
 | Агент | guard-rules-bloat.sh | block-dangerous-git.sh | data-discipline.md |
