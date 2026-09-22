@@ -1,6 +1,8 @@
 ---
 name: git-guardrails-claude-code
 description: Use when the user wants to prevent destructive git operations, add git safety hooks, or block dangerous commands (push --force, reset --hard, clean -fd, branch -D, checkout ./restore .) in Claude Code.
+disable-model-invocation: true
+allowed-tools: Read, Write, Edit, Bash
 ---
 
 # Setup Git Guardrails
