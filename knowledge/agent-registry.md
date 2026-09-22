@@ -42,7 +42,7 @@ Google Sheets, spreadsheetId `1mgrnPiPY3oJJJQOqAzgRNKWuj4u41OLxLggNRyOUFdM` (с�
 | ENGINEER | 2026-09-14 | 11 | 0 |
 | AI Marketing Strategist | 2026-09-14 | 12 | 0 |
 | AI Avitolog | 2026-09-14 | 10 | 0 |
-| AI Legal Constructor | 2026-09-14 | 4 | 0 |
+| AI Legal Constructor | 2026-09-22 | 11 | 0 |
 | AI Intelligence | 2026-09-14 | 3 | 0 |
 | AI Copywriter | — | — | не прогонялось |
 | AI Brand Architect | 2026-09-22 | 9 | 2 флага (`brand-context`, `brand-guidelines` — признак расчёта в тексте без `tools/`), проверены вручную: субъективная оценка (например «X/10» для варианта имени) экспертным суждением агента, не детерминированная формула — Script-First сюда не применим, ложное срабатывание |
